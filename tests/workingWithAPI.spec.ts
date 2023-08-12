@@ -10,10 +10,6 @@ test.beforeEach( async({page}) => {
 
 
   await page.goto('https://angular.realworld.io/');
-  await page.getByText('Sign in').click()
-  await page.getByRole('textbox', {name: "Email"}).fill('pwtest@test.com')
-  await page.getByRole('textbox', {name: 'Password'}).fill('Welcome1')
-  await page.getByRole('button').click()
 })
 
 test('has title', async ({ page }) => {
@@ -35,20 +31,10 @@ test('has title', async ({ page }) => {
 });
 
 test('delete artice', async({page, request}) => {
-  const response = await request.post('https://api.realworld.io/api/users/login', {
-    data: {
-      "user":{"email":"pwtest@test.com","password":"Welcome1"}
-    }
-  })
-  const responseBody = await response.json()
-  const accessToken = responseBody.user.token
 
   const articleResponse = await request.post('https://api.realworld.io/api/articles/', {
     data:{
       "article":{"tagList":[],"title":"This is a test title","description":"This is a test description","body":"This is a test body"}
-    },
-    headers: {
-      Authorization: `Token ${accessToken}`
     }
   })
   expect(articleResponse.status()).toEqual(201)
@@ -78,18 +64,6 @@ test('create article', async({page, request}) => {
 
   await expect(page.locator('app-article-list h1').first()).toContainText('Playwright is awesome')
 
-  const response = await request.post('https://api.realworld.io/api/users/login', {
-    data: {
-      "user":{"email":"pwtest@test.com","password":"Welcome1"}
-    }
-  })
-  const responseBody = await response.json()
-  const accessToken = responseBody.user.token
-
-  const deleteArticleResponse = await request.delete(`https://api.realworld.io/api/articles/${slugId}`, {
-    headers: {
-      Authorization: `Token ${accessToken}`
-    }
-  })
+  const deleteArticleResponse = await request.delete(`https://api.realworld.io/api/articles/${slugId}`)
   expect(deleteArticleResponse.status()).toEqual(204)
 })
