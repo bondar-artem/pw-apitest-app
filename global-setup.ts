@@ -1,5 +1,5 @@
 import { request, expect } from "@playwright/test"
-import user from '../pw-apitest-app/.auth/user.json'
+import user from './.auth/user.json'
 import fs from 'fs'
 
 

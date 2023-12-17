@@ -9,7 +9,7 @@ test.beforeEach( async({page}) => {
   })
 
 
-  await page.goto('https://angular.realworld.io/');
+  await page.goto('https://angular.realworld.how/');
 })
 
 test('has title', async ({ page }) => {
@@ -59,7 +59,7 @@ test('create article', async({page, request}) => {
   const slugId = articleResponseBody.article.slug
 
   await expect(page.locator('.article-page h1')).toContainText('Playwright is awesome')
-  await page.getByText('Home').click()
+  await page.getByText('Home').first().click()
   await page.getByText('Global Feed').click()
 
   await expect(page.locator('app-article-list h1').first()).toContainText('Playwright is awesome')
