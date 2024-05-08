@@ -5,7 +5,7 @@ import fs from 'fs'
 const authFile = '.auth/user.json'
 
 setup('authentication', async({request}) => {
-  const response = await request.post('https://api.realworld.io/api/users/login', {
+  const response = await request.post('https://conduit-api.bondaracademy.com/api/users/login', {
     data: {
       "user":{"email":"pwtest@test.com","password":"Welcome1"}
     }

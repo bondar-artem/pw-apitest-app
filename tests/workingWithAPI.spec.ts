@@ -9,7 +9,7 @@ test.beforeEach( async({page}) => {
   })
 
 
-  await page.goto('https://angular.realworld.how/');
+  await page.goto('https://conduit.bondaracademy.com/');
 })
 
 test('has title', async ({ page }) => {
@@ -32,7 +32,7 @@ test('has title', async ({ page }) => {
 
 test('delete artice', async({page, request}) => {
 
-  const articleResponse = await request.post('https://api.realworld.io/api/articles/', {
+  const articleResponse = await request.post('https://conduit-api.bondaracademy.com/api/articles/', {
     data:{
       "article":{"tagList":[],"title":"This is a test title","description":"This is a test description","body":"This is a test body"}
     }
@@ -54,7 +54,7 @@ test('create article', async({page, request}) => {
   await page.getByRole('textbox', {name: 'What\'s this article about?'}).fill('About the Playwright')
   await page.getByRole('textbox', {name: 'Write your article (in markdown)'}).fill('We like to use playwright for automation')
   await page.getByRole('button', {name:'Publish Article'}).click()
-  const articleResponse = await page.waitForResponse('https://api.realworld.io/api/articles/')
+  const articleResponse = await page.waitForResponse('https://conduit-api.bondaracademy.com/api/articles/')
   const articleResponseBody = await articleResponse.json()
   const slugId = articleResponseBody.article.slug
 
@@ -64,6 +64,6 @@ test('create article', async({page, request}) => {
 
   await expect(page.locator('app-article-list h1').first()).toContainText('Playwright is awesome')
 
-  const deleteArticleResponse = await request.delete(`https://api.realworld.io/api/articles/${slugId}`)
+  const deleteArticleResponse = await request.delete(`https://conduit-api.bondaracademy.com/api/articles/${slugId}`)
   expect(deleteArticleResponse.status()).toEqual(204)
 })
