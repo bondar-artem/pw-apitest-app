@@ -7,7 +7,7 @@ async function globalSetup() {
     const authFile = '.auth/user.json'
     const context = await request.newContext()
     
-    const responseToken = await context.post('https://api.realworld.io/api/users/login', {
+    const responseToken = await context.post('https://conduit-api.bondaracademy.com/api/users/login', {
         data: {
             "user": { "email": "pwtest@test.com", "password": "Welcome1" }
         }
@@ -18,7 +18,7 @@ async function globalSetup() {
     fs.writeFileSync(authFile, JSON.stringify(user))
     process.env['ACCESS_TOKEN'] = accessToken
 
-    const articleResponse = await context.post('https://api.realworld.io/api/articles/', {
+    const articleResponse = await context.post('https://conduit-api.bondaracademy.com/api/articles/', {
         data: {
             "article": { "tagList": [], "title": "Global Likes test article", "description": "This is a test description", "body": "This is a test body" }
         },
